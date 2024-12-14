@@ -1,0 +1,20 @@
+.title{
+    font-weight: 700;
+}
+
+.table{
+    border: 1px solid black;
+    width: 360px;
+}
+
+.head{
+    background-color: #28282d;
+    color: #f0f0f0
+}
+
+.item:nth-child(even) {
+    background-color: lightgray;
+
+}
+
+ 
