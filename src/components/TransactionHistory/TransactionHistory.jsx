@@ -1,36 +1,38 @@
-import css from "./TransactionHistory.module.css"
-import user from "/src/userData.json"
+import PropTypes from "prop-types";
+import styles from "./TransactionHistory.module.css";
 
-function TransactionHistory({ items }) {
+const TransactionHistory = ({ items }) => {
+  return (
+    <table className={styles.transactionTable}>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Amounts</th>
+          <th>Currency</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map(({ id, type, amount, currency }) => (
+          <tr key={id}>
+            <td>{type}</td>
+            <td>{amount}</td>
+            <td>{currency}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
-    return (
-        <>
-            <p className={css.title}>Transaction of { user.username}</p>
-            <table className={css.table}>
-                <thead >
-                    <tr className={css.head}>
-                        <th >Type</th>
-                        <th>Amount</th>
-                        <th>Currency</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map(item => {
-                        let lalala = item.type[0].toUpperCase() + item.type.slice(1);
-                        return <tr key={item.id} className={css.item}>
-                            <td>{lalala}</td>
-                            <td>{item.amount}</td>
-                            <td>{item.currency}</td>
-                        </tr>
-                })}
-                </tbody>
-            </table>
-        </>
-    )
-}
+TransactionHistory.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      amount: PropTypes.string.isRequired,
+      currency: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
-export default TransactionHistory
-
-/* <td>{item.type}</td>
-<td>{item.amount}</td>
-<td>{item.currency}</td> */
+export default TransactionHistory;

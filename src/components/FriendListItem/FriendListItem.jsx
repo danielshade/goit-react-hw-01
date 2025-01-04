@@ -1,16 +1,26 @@
-import clsx from "clsx"
-import css from './FriendListItem.module.css'
-import { TbPointFilled } from "react-icons/tb";
+import PropTypes from "prop-types";
+import styles from "./FriendListItem.module.css";
 
-function FriendListItem({ name, avatar, isOnline }) {
-    return (
-        <div className={css.item}>
-            <img src={avatar} alt={name} className={css.img}  />
-            <p className={css.name}>{name}</p>
-            <TbPointFilled className={clsx(isOnline ? css.blink : css.hidden)} size="28"/>
-            <p className={clsx(isOnline? css.green  : css.red)}>{isOnline? `Online` : `Offline`}</p>
-        </div>
-    )
-}
+const FriendListItem = ({ avatar, name, isOnline }) => {
+  return (
+    <div className={styles.friendItem}>
+      <img src={avatar} alt={`${name}'s avatar`} className={styles.avatar} />
+      <p className={styles.name}>{name}</p>
+      <p
+        className={`${styles.status} ${
+          isOnline ? styles.online : styles.offline
+        }`}
+      >
+        {isOnline ? "Online" : "Offline"}
+      </p>
+    </div>
+  );
+};
 
-export default FriendListItem
+FriendListItem.propTypes = {
+  avatar: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  isOnline: PropTypes.bool.isRequired,
+};
+
+export default FriendListItem;

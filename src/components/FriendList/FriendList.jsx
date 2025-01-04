@@ -1,25 +1,28 @@
+import PropTypes from "prop-types";
+import FriendListItem from "../FriendListItem/FriendListItem";
+import styles from "./FriendList.module.css";
 
-import css from "./FriendList.module.css"
-import FriendListItem from '../FriendListItem/FriendListItem'
-import userData from '../../userData.json'
+const FriendList = ({ friends }) => {
+  return (
+    <ul className={styles.friendList}>
+      {friends.map(({ id, avatar, name, isOnline }) => (
+        <li key={id} className={styles.friendListItem}>
+          <FriendListItem avatar={avatar} name={name} isOnline={isOnline} />
+        </li>
+      ))}
+    </ul>
+  );
+};
 
-function FriendList({ friends }) {
-    return (
-        <div className={css.friendlist}>
-            <p className={css.title}>Friends of { userData.username}</p>
-            <ul className={css.list}>
-                {friends.map((friend) => {
-                    return <li key={friend.id} className={css.item}>
-                                <FriendListItem
-                                name={friend.name}
-                                avatar={friend.avatar}
-                                isOnline={friend.isOnline}
-                                />
-                            </li>
-                })}
-            </ul>
-        </div>
-    )
-}
+FriendList.propTypes = {
+  friends: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      avatar: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      isOnline: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
+};
 
-export default FriendList
+export default FriendList;
